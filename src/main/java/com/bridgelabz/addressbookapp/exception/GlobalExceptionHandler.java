@@ -11,7 +11,7 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    // 🔴 Handle validation errors
+    // 🔴 Handle validation errors (UC2)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleValidationException(MethodArgumentNotValidException ex) {
 
@@ -22,5 +22,11 @@ public class GlobalExceptionHandler {
         });
 
         return new ResponseEntity<>(errorMap, HttpStatus.BAD_REQUEST);
+    }
+
+    // 🔴 Handle custom exceptions (UC3)
+    @ExceptionHandler(AddressBookException.class)
+    public ResponseEntity<String> handleAddressBookException(AddressBookException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }
