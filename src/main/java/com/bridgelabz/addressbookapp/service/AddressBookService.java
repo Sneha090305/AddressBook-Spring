@@ -2,48 +2,47 @@ package com.bridgelabz.addressbookapp.service;
 
 import com.bridgelabz.addressbookapp.dto.AddressBookDTO;
 import com.bridgelabz.addressbookapp.model.AddressBook;
+import com.bridgelabz.addressbookapp.repository.AddressBookRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class AddressBookService {
+public class AddressBookService implements IAddressBookService {
 
-    private final List<AddressBook> addressList = new ArrayList<>();
+    @Autowired
+    private AddressBookRepository repository;
 
-    // CREATE
+    @Override
     public AddressBook addAddress(AddressBookDTO dto) {
         AddressBook address = new AddressBook(dto);
-        addressList.add(address);
-        return address;
+        return repository.save(address);
     }
 
-    // GET ALL
+    @Override
     public List<AddressBook> getAllAddresses() {
-        return addressList;
+        return repository.findAll();
     }
 
-    // GET BY ID
+    @Override
     public AddressBook getById(int id) {
-        return addressList.stream()
-                .filter(a -> a.getId() == id)
-                .findFirst()
-                .orElse(null);
+        return repository.findById(id).orElse(null);
     }
 
-    // UPDATE
+    @Override
     public AddressBook update(int id, AddressBookDTO dto) {
-        AddressBook address = getById(id);
+        AddressBook address = repository.findById(id).orElse(null);
         if (address != null) {
             address.setName(dto.getName());
             address.setAddress(dto.getAddress());
+            return repository.save(address);
         }
-        return address;
+        return null;
     }
 
-    // DELETE
+    @Override
     public void delete(int id) {
-        addressList.removeIf(a -> a.getId() == id);
+        repository.deleteById(id);
     }
 }
