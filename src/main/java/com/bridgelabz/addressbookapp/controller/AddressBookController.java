@@ -15,7 +15,7 @@ public class AddressBookController {
     @Autowired
     private AddressBookService service;
 
-    // POST
+    // CREATE
     @PostMapping("/create")
     public AddressBook create(@RequestBody AddressBookDTO dto) {
         return service.addAddress(dto);
@@ -25,5 +25,24 @@ public class AddressBookController {
     @GetMapping("/all")
     public List<AddressBook> getAll() {
         return service.getAllAddresses();
+    }
+
+    // GET BY ID
+    @GetMapping("/{id}")
+    public AddressBook getById(@PathVariable int id) {
+        return service.getById(id);
+    }
+
+    // UPDATE
+    @PutMapping("/{id}")
+    public AddressBook update(@PathVariable int id, @RequestBody AddressBookDTO dto) {
+        return service.update(id, dto);
+    }
+
+    // DELETE
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable int id) {
+        service.delete(id);
+        return "Deleted ID: " + id;
     }
 }
