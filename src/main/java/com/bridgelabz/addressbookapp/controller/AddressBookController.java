@@ -16,26 +16,32 @@ public class AddressBookController {
     @Autowired
     private IAddressBookService service;
 
+    // CREATE
     @PostMapping("/create")
     public AddressBook create(@Valid @RequestBody AddressBookDTO dto) {
         return service.addAddress(dto);
     }
 
+    // GET ALL
     @GetMapping("/all")
     public List<AddressBook> getAll() {
         return service.getAllAddresses();
     }
 
+    // GET BY ID
     @GetMapping("/{id}")
     public AddressBook getById(@PathVariable int id) {
         return service.getById(id);
     }
 
+    // UPDATE
     @PutMapping("/{id}")
-    public AddressBook update(@PathVariable int id, @Valid @RequestBody AddressBookDTO dto) {
+    public AddressBook update(@PathVariable int id,
+                              @Valid @RequestBody AddressBookDTO dto) {
         return service.update(id, dto);
     }
 
+    // DELETE
     @DeleteMapping("/{id}")
     public String delete(@PathVariable int id) {
         service.delete(id);
