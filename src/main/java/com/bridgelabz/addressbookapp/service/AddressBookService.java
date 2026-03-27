@@ -2,7 +2,7 @@ package com.bridgelabz.addressbookapp.service;
 
 import com.bridgelabz.addressbookapp.dto.AddressBookDTO;
 import com.bridgelabz.addressbookapp.model.AddressBook;
-import com.bridgelabz.addressbookapp.repository.IAddressBookRepository;
+import com.bridgelabz.addressbookapp.repository.AddressBookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +12,7 @@ import java.util.List;
 public class AddressBookService implements IAddressBookService {
 
     @Autowired
-    private IAddressBookRepository repository;
+    private AddressBookRepository repository;
 
     @Override
     public AddressBook addAddress(AddressBookDTO dto) {
@@ -27,21 +27,22 @@ public class AddressBookService implements IAddressBookService {
 
     @Override
     public AddressBook getById(int id) {
-        return repository.findById(id);
+        return repository.findById(id).orElse(null);
     }
 
     @Override
     public AddressBook update(int id, AddressBookDTO dto) {
-        AddressBook address = repository.findById(id);
+        AddressBook address = repository.findById(id).orElse(null);
         if (address != null) {
             address.setName(dto.getName());
             address.setAddress(dto.getAddress());
+            return repository.save(address);
         }
-        return address;
+        return null;
     }
 
     @Override
     public void delete(int id) {
-        repository.delete(id);
+        repository.deleteById(id);
     }
 }

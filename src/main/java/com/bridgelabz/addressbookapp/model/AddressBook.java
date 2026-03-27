@@ -1,17 +1,22 @@
 package com.bridgelabz.addressbookapp.model;
 
 import com.bridgelabz.addressbookapp.dto.AddressBookDTO;
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "address_book")
 public class AddressBook {
 
-    private static int counter = 0;
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String name;
     private String address;
 
+    public AddressBook() {}
+
     public AddressBook(AddressBookDTO dto) {
-        this.id = ++counter;
         this.name = dto.getName();
         this.address = dto.getAddress();
     }
