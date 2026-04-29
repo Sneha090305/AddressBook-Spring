@@ -1,62 +1,169 @@
-#  Address Book App (Spring Boot)
-
-##  Project Overview
-
-This is a **Spring Boot Address Book Application** implementing:
-
-* REST APIs (CRUD operations)
-* Layered architecture (Controller → Service → Repository)
-* MySQL Database integration
-* Validation & Exception Handling
+# Address Book App (Spring Boot)
 
 ---
 
-##  Tech Stack
+## Overview
+
+The **Address Book App** is a Spring Boot REST API that manages contact details.
+It demonstrates a complete backend application with CRUD operations, validation, exception handling, and MySQL database integration using a clean layered architecture.
+
+---
+
+## Tech Stack
 
 * Java 17
-* Spring Boot
+* Spring Boot 3
 * Spring Web
 * Spring Data JPA
 * MySQL
+* Lombok
 * Maven
+* Postman
 
 ---
 
-##  Project Structure
+## Project Structure
 
 ```
-controller/
-service/
-repository/
-model/
-dto/
-exception/
+com.bridgelabz.addressbook
+│
+├── controller
+├── service
+├── repository
+├── model
+├── dto
+├── exception
+└── AddressbookAppApplication.java
 ```
 
 ---
 
-##  Features Implemented
+# Use Case Descriptions (UC1 – UC13)
 
-###  Section 1
+---
 
-* Basic REST API
-* CRUD endpoints using HTTP methods
+##  Section 1 — Project Setup & REST API
 
-###  Section 2
+###  UC1 — Address Book Setup
 
-* DTO & Model
-* Service Layer
-* In-memory List storage
+Initializes the Spring Boot project and sets up the base structure for the Address Book application.
 
-### Section 3
+###  UC2 — Address Book REST API
 
-* Service Interface
-* Repository Layer
-* MySQL + JPA integration
-* Environment Variables configuration
+Creates REST controller and exposes basic API endpoints for handling HTTP requests.
 
-###  Section 4
+---
 
-* Validation (`@NotBlank`, `@Pattern`)
-* Global Exception Handling
-* Custom Exception for invalid ID
+##  Section 2 — Application Layers
+
+###  UC3 — DTO & Model Creation
+
+Defines `AddressBookDTO` and `AddressBookModel` classes for data transfer and entity representation.
+
+###  UC4 — Service Layer Implementation
+
+Implements business logic inside the service layer.
+
+###  UC5 — Address Book Service Operations
+
+Implements core operations like create, read, update, and delete in the service layer.
+
+---
+
+##  Section 3 — Logging & Database
+
+###  UC6 — Lombok Setup
+
+Uses Lombok annotations to reduce boilerplate code (getters, setters, constructors).
+
+###  UC7 — Logging Implementation
+
+Implements logging using Lombok (`@Slf4j`) for tracking application flow.
+
+###  UC8 — Logging Profiles
+
+Configures logging levels and patterns using environment-based profiles (dev, prod).
+
+###  UC9 — Database Configuration
+
+Integrates MySQL database using Spring Data JPA and environment-based configuration.
+
+---
+
+##  Section 4 — Validation & Exception Handling
+
+###  UC10 — Input Validation
+
+Applies validation on input fields using annotations like `@NotBlank` and `@Pattern`.
+
+###  UC11 — Validation Exception Handling
+
+Handles validation errors globally using `@RestControllerAdvice` and returns clean responses.
+
+###  UC12 — Custom Exception Handling
+
+Implements custom exception (`AddressBookException`) to handle cases like ID not found.
+
+---
+
+#  API Endpoints
+
+###  Create Address
+
+```http
+POST /addressbook
+```
+
+###  Get All Addresses
+
+```http
+GET /addressbook
+```
+
+###  Get Address By ID
+
+```http
+GET /addressbook/{id}
+```
+
+###  Update Address
+
+```http
+PUT /addressbook/{id}
+```
+
+###  Delete Address
+
+```http
+DELETE /addressbook/{id}
+```
+
+---
+
+#  Sample Outputs
+
+###  Create Success
+
+```json
+{
+  "id": 1,
+  "name": "sneha",
+  "city": "Chennai"
+}
+```
+
+---
+
+###  Get All
+
+```json
+[
+  {
+    "id": 1,
+    "name": "sneha",
+    "city": "Chennai"
+  }
+]
+```
+
+---
